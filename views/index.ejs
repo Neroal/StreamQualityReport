@@ -1,12 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
 
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<head>
+	<title>
+		<%= title %>
+	</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+
+	<h1>
+		<%= title %>
+	</h1>
+	<p>Welcome to <%= title %>
+	</p>
+	<h2 id="counter">0</h2>
+</body>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const counter = document.getElementById('counter');
+
+		setInterval(async () => {
+			const data = await getStreamQualityList();
+			counter.textContent = data;
+		}, 5000);
+	})
+
+	async function getStreamQualityList() {
+		const response = await fetch('/api/get-stream-quality-list');
+		return await response.json();
+	}
+</script>
+
 </html>
