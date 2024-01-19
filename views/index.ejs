@@ -6,31 +6,35 @@
 		<%= title %>
 	</title>
 	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<script src="/javascripts/chart-min.js"></script>
 </head>
 
 <body>
 
-	<h1>
-		<%= title %>
-	</h1>
-	<p>Welcome to <%= title %>
-	</p>
-	<h2 id="counter">0</h2>
+	<header>
+		<div class="app-header">
+			<img class="app-logo" src="/images/logo.png" alt="logo" onclick="redirectToHome()">
+		</div>
+	</header>
+
+	<main>
+		<ul class="stream-quality-ul">
+			<%for(let data of list){%>
+				<li class="stream-quality-li">
+					<h2><%= data.type %> <%= data.name %></h2>
+		
+					<p><b>Avg topiq_nr</b>: 0.520948604742686</p>
+					<p><b>Avg topiq_nr_flive</b>: 0.520948604742686</p>
+					<p><b>Avg topiq_nr_spqa</b>: 0.520948604742686</p>
+				</li>
+			<% } %>
+		</ul>
+	</main>
 </body>
 
 <script>
-	document.addEventListener('DOMContentLoaded', () => {
-		const counter = document.getElementById('counter');
-
-		setInterval(async () => {
-			const data = await getStreamQualityList();
-			counter.textContent = data;
-		}, 5000);
-	})
-
-	async function getStreamQualityList() {
-		const response = await fetch('/api/get-stream-quality-list');
-		return await response.json();
+	function redirectToHome() {
+		window.location.href = '/';
 	}
 </script>
 
